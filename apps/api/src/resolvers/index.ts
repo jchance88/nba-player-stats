@@ -1,4 +1,4 @@
-import { getPlayer, getPlayers, getSeasonAverages, getPlayerCareerStats } from "@nba/nba-client";
+import { getPlayer, getPlayers, getSeasonAverages, getPlayerSeasonStats } from "@nba/nba-client";
 
 export const resolvers = {
   Query: {
@@ -30,9 +30,10 @@ export const resolvers = {
       { firstName, lastName }: { firstName: string; lastName: string }
     ) => {
       try {
-        return await getPlayerCareerStats(firstName, lastName);
+        const result = await getPlayerSeasonStats(firstName, lastName);
+        return result?.seasons ?? [];
       } catch {
-        return null;
+        return [];
       }
     },
   },

@@ -20,6 +20,7 @@ export default function SearchBar({ onSearch, placeholder = "Search players..." 
         value={value}
         onChange={(e) => setValue(e.target.value)}
         placeholder={placeholder}
+        className="search-input"
         style={{
           flex: 1,
           padding: "8px 12px",
@@ -30,6 +31,7 @@ export default function SearchBar({ onSearch, placeholder = "Search players..." 
       />
       <button
         type="submit"
+        className="search-button"
         style={{
           padding: "8px 18px",
           borderRadius: 6,

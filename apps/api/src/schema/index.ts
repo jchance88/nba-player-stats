@@ -76,6 +76,6 @@ export const typeDefs = gql`
     players(search: String, page: Int): PlayersPage!
     player(id: Int!): Player
     seasonAverages(playerId: Int!, season: Int): SeasonAverage
-    playerStats(firstName: String!, lastName: String!): CareerStats
+    playerStats(firstName: String!, lastName: String!): [SeasonStat!]!
   }
 `;

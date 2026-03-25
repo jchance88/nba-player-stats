@@ -1,3 +1,2 @@
-export { getPlayers, getPlayer, getSeasonAverages } from "./api";
-export { getPlayerCareerStats } from "./stats";
+export { getPlayers, getPlayer, getSeasonAverages, getPlayerSeasonStats } from "./api";
 export type { CareerStats, SeasonStat } from "./stats";

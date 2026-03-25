@@ -3,13 +3,15 @@ import https from "https";
 const HOST = "stats.nba.com";
 const HEADERS = {
   "User-Agent":
-    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36",
   Referer: "https://www.nba.com/",
   Accept: "application/json, text/plain, */*",
   "Accept-Language": "en-US,en;q=0.9",
   "x-nba-stats-origin": "stats",
   "x-nba-stats-token": "true",
   Origin: "https://www.nba.com",
+  Host: "stats.nba.com",
+  Connection: "keep-alive",
 };
 
 export interface SeasonStat {
@@ -88,7 +90,7 @@ let playerIdCache: Map<string, number> | null = null;
 async function getPlayerIdMap(): Promise<Map<string, number>> {
   if (playerIdCache) return playerIdCache;
   const data = await get<any>(
-    "/stats/commonallplayers?LeagueID=00&Season=2024-25&IsOnlyCurrentSeason=0"
+    "/stats/commonallplayers?LeagueID=00&Season=2025-26&IsOnlyCurrentSeason=0"
   );
   const rs = data.resultSets.find((r: any) => r.name === "CommonAllPlayers");
   playerIdCache = new Map();

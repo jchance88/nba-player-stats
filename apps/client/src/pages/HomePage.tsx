@@ -21,7 +21,7 @@ export default function HomePage() {
 
   return (
     <div style={{ maxWidth: 700, margin: "0 auto", padding: "32px 16px" }}>
-      <h1 style={{ color: "#1d428a", marginBottom: 24 }}>NBA Player Stats</h1>
+      <h1 className="page-title" style={{ marginBottom: 24, fontSize: 32, fontWeight: 800 }}>NBA Player Stats</h1>
       <SearchBar onSearch={handleSearch} />
 
       {loading && <p style={{ marginTop: 16, color: "#888" }}>Searching...</p>}
@@ -32,10 +32,11 @@ export default function HomePage() {
           {data.players.data.length === 0 ? (
             <p style={{ color: "#888" }}>No players found.</p>
           ) : (
-            data.players.data.map((player) => (
+            data.players.data.map((player, i) => (
               <PlayerCard
                 key={player.id}
                 player={player}
+                index={i}
                 expanded={expandedId === player.id}
                 onExpand={setExpandedId}
               />

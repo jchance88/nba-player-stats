@@ -47,14 +47,9 @@ export default function PlayerStats({ firstName, lastName }: Props) {
   if (loading) return <p style={{ marginTop: 8, color: "#888" }}>Loading stats...</p>;
   if (error) return <p style={{ marginTop: 8, color: "red" }}>Failed to load stats.</p>;
 
-  const stats = data?.playerStats;
-  if (!stats || stats.seasons.length === 0)
+  const rows: SeasonStat[] = data?.playerStats ?? [];
+  if (rows.length === 0)
     return <p style={{ marginTop: 8, color: "#888" }}>No stats available.</p>;
-
-  const rows: (SeasonStat & { isCareer?: boolean })[] = [
-    ...stats.seasons,
-    ...(stats.career ? [{ ...stats.career, isCareer: true }] : []),
-  ];
 
   return (
     <div style={{ marginTop: 14, overflowX: "auto" }}>
@@ -82,12 +77,8 @@ export default function PlayerStats({ firstName, lastName }: Props) {
             <tr
               key={row.season + row.team + i}
               style={{
-                background: row.isCareer
-                  ? "#1d428a15"
-                  : i % 2 === 0
-                  ? "#f8f8f8"
-                  : "#fff",
-                fontWeight: row.isCareer ? 700 : 400,
+                background: i % 2 === 0 ? "#f8f8f8" : "#fff",
+                fontWeight: 400,
               }}
             >
               {COLS.map((c) => {
