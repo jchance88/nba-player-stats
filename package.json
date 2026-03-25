@@ -1,0 +1,23 @@
+{
+  "name": "nba-player-stats",
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "docker-compose -f docker/docker-compose.yml up -d && sleep 5 && npm run db:setup && concurrently -n api,client -c blue,green \"npm run dev:api\" \"npm run dev:client\"",
+    "dev:api": "npm --workspace=apps/api run dev",
+    "dev:client": "npm --workspace=apps/client run dev",
+    "db:setup": "npm --workspace=packages/db run generate && npm --workspace=packages/db run db:push",
+    "build": "npm --workspace=apps/api run build && npm --workspace=apps/client run build"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^6.19.0",
+    "@typescript-eslint/parser": "^6.19.0",
+    "concurrently": "^8.2.2",
+    "eslint": "^8.56.0",
+    "typescript": "^5.3.3"
+  }
+}

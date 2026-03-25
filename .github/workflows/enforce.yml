@@ -1,0 +1,44 @@
+name: Enforce Architecture
+
+on:
+  pull_request:
+  push:
+    branches: [main, develop]
+
+jobs:
+  enforce:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Use Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20
+
+      - run: npm install
+
+      - name: Block forbidden dependencies
+        run: |
+          if grep -R "axios" .; then echo "❌ axios not allowed"; exit 1; fi
+          if grep -R "sequelize" .; then echo "❌ sequelize not allowed"; exit 1; fi
+          if grep -R "typeorm" .; then echo "❌ typeorm not allowed"; exit 1; fi
+
+      - name: Detect REST usage
+        run: |
+          if grep -R "fetch(" apps/api; then echo "❌ REST usage detected"; exit 1; fi
+
+      - name: Enforce Prisma
+        run: |
+          if ! grep -R "@prisma/client" .; then echo "❌ Prisma missing"; exit 1; fi
+
+      - name: Enforce OpenSearch client
+        run: |
+          if ! grep -R "@opensearch-project/opensearch" .; then echo "❌ OpenSearch client missing"; exit 1; fi
+
+      - name: Type check
+        run: npx tsc --noEmit
+
+      - name: Lint
+        run: npx eslint .
