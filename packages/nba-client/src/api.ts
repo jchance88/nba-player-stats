@@ -18,6 +18,9 @@ function get<T>(path: string): Promise<T> {
         let raw = "";
         res.on("data", (chunk: string) => (raw += chunk));
         res.on("end", () => {
+          if (res.statusCode === 401 || res.statusCode === 403) {
+            return reject(new Error(`balldontlie API error ${res.statusCode}: ${raw.trim()}`));
+          }
           try {
             resolve(JSON.parse(raw));
           } catch (e) {

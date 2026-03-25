@@ -18,8 +18,12 @@ export const resolvers = {
       _: unknown,
       { playerId, season = 2023 }: { playerId: number; season?: number }
     ) => {
-      const result = await getSeasonAverages(playerId, season);
-      return result.data[0] ?? null;
+      try {
+        const result = await getSeasonAverages(playerId, season);
+        return result.data[0] ?? null;
+      } catch {
+        return null;
+      }
     },
   },
 };
