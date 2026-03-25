@@ -49,9 +49,7 @@ export const typeDefs = gql`
 
   type PlayersPage {
     data: [Player!]!
-    total_count: Int!
-    total_pages: Int!
-    current_page: Int!
+    next_cursor: Int
   }
 
   type Query {

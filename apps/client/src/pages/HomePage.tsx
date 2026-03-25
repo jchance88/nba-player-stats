@@ -7,9 +7,7 @@ import PlayerCard from "../components/PlayerCard";
 
 interface PlayersPage {
   data: NBAPlayer[];
-  total_count: number;
-  total_pages: number;
-  current_page: number;
+  next_cursor: number | null;
 }
 
 export default function HomePage() {

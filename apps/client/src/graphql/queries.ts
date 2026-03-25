@@ -20,9 +20,7 @@ export const GET_PLAYERS = gql`
           division
         }
       }
-      total_count
-      total_pages
-      current_page
+      next_cursor
     }
   }
 `;

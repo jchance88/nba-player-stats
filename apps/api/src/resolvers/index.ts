@@ -6,9 +6,7 @@ export const resolvers = {
       const result = await getPlayers(search, page);
       return {
         data: result.data,
-        total_count: result.meta.total_count,
-        total_pages: result.meta.total_pages,
-        current_page: result.meta.current_page,
+        next_cursor: result.meta.next_cursor ?? null,
       };
     },
 
