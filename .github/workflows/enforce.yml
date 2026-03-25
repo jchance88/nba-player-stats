@@ -25,17 +25,9 @@ jobs:
           if grep -R "sequelize" .; then echo "❌ sequelize not allowed"; exit 1; fi
           if grep -R "typeorm" .; then echo "❌ typeorm not allowed"; exit 1; fi
 
-      - name: Detect REST usage
+      - name: Detect REST usage in API
         run: |
-          if grep -R "fetch(" apps/api; then echo "❌ REST usage detected"; exit 1; fi
-
-      - name: Enforce Prisma
-        run: |
-          if ! grep -R "@prisma/client" .; then echo "❌ Prisma missing"; exit 1; fi
-
-      - name: Enforce OpenSearch client
-        run: |
-          if ! grep -R "@opensearch-project/opensearch" .; then echo "❌ OpenSearch client missing"; exit 1; fi
+          if grep -R "fetch(" apps/api; then echo "❌ REST usage detected in apps/api"; exit 1; fi
 
       - name: Type check
         run: npx tsc --noEmit

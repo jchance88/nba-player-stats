@@ -1,20 +1,5 @@
 import { gql } from "@apollo/client";
 
-export const SEARCH_PLAYERS = gql`
-  query SearchPlayers($query: String!) {
-    searchPlayers(query: $query) {
-      id
-      first_name
-      last_name
-      position
-      team {
-        full_name
-        abbreviation
-      }
-    }
-  }
-`;
-
 export const GET_PLAYERS = gql`
   query GetPlayers($search: String, $page: Int) {
     players(search: $search, page: $page) {
@@ -58,30 +43,5 @@ export const GET_SEASON_AVERAGES = gql`
       fg3_pct
       ft_pct
     }
-  }
-`;
-
-export const GET_FAVORITES = gql`
-  query GetFavorites {
-    favoritePlayers {
-      id
-      playerId
-      createdAt
-    }
-  }
-`;
-
-export const ADD_FAVORITE = gql`
-  mutation AddFavorite($playerId: Int!) {
-    addFavorite(playerId: $playerId) {
-      id
-      playerId
-    }
-  }
-`;
-
-export const REMOVE_FAVORITE = gql`
-  mutation RemoveFavorite($playerId: Int!) {
-    removeFavorite(playerId: $playerId)
   }
 `;

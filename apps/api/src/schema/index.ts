@@ -47,12 +47,6 @@ export const typeDefs = gql`
     ft_pct: Float!
   }
 
-  type FavoritePlayer {
-    id: Int!
-    playerId: Int!
-    createdAt: String!
-  }
-
   type PlayersPage {
     data: [Player!]!
     total_count: Int!
@@ -64,12 +58,5 @@ export const typeDefs = gql`
     players(search: String, page: Int): PlayersPage!
     player(id: Int!): Player
     seasonAverages(playerId: Int!, season: Int): SeasonAverage
-    searchPlayers(query: String!): [Player!]!
-    favoritePlayers: [FavoritePlayer!]!
-  }
-
-  type Mutation {
-    addFavorite(playerId: Int!): FavoritePlayer!
-    removeFavorite(playerId: Int!): Boolean!
   }
 `;

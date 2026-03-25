@@ -9,9 +9,7 @@
   },
   "dependencies": {
     "@apollo/server": "^4.10.0",
-    "@nba/db": "*",
     "@nba/nba-client": "*",
-    "@nba/search": "*",
     "@nba/types": "*",
     "graphql": "^16.8.1"
   },

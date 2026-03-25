@@ -1,19 +1,24 @@
 import { useState } from "react";
 import { useLazyQuery } from "@apollo/client";
 import { NBAPlayer } from "@nba/types";
-import { SEARCH_PLAYERS } from "../graphql/queries";
+import { GET_PLAYERS } from "../graphql/queries";
 import SearchBar from "../components/SearchBar";
 import PlayerCard from "../components/PlayerCard";
 
+interface PlayersPage {
+  data: NBAPlayer[];
+  total_count: number;
+  total_pages: number;
+  current_page: number;
+}
+
 export default function HomePage() {
   const [expandedId, setExpandedId] = useState<number | null>(null);
-  const [search, { data, loading, error }] = useLazyQuery<{ searchPlayers: NBAPlayer[] }>(
-    SEARCH_PLAYERS
-  );
+  const [search, { data, loading, error }] = useLazyQuery<{ players: PlayersPage }>(GET_PLAYERS);
 
   const handleSearch = (query: string) => {
     setExpandedId(null);
-    search({ variables: { query } });
+    search({ variables: { search: query, page: 1 } });
   };
 
   return (
@@ -26,10 +31,10 @@ export default function HomePage() {
 
       {data && (
         <div style={{ marginTop: 20, display: "flex", flexDirection: "column", gap: 10 }}>
-          {data.searchPlayers.length === 0 ? (
+          {data.players.data.length === 0 ? (
             <p style={{ color: "#888" }}>No players found.</p>
           ) : (
-            data.searchPlayers.map((player) => (
+            data.players.data.map((player) => (
               <PlayerCard
                 key={player.id}
                 player={player}
