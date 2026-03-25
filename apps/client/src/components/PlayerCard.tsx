@@ -30,7 +30,7 @@ export default function PlayerCard({ player, expanded, onExpand }: Props) {
           {player.team?.abbreviation ?? "FA"}
         </span>
       </div>
-      {expanded && <PlayerStats playerId={player.id} />}
+      {expanded && <PlayerStats firstName={player.first_name} lastName={player.last_name} />}
     </div>
   );
 }

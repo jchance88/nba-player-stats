@@ -25,6 +25,41 @@ export const GET_PLAYERS = gql`
   }
 `;
 
+export const GET_PLAYER_STATS = gql`
+  query GetPlayerStats($firstName: String!, $lastName: String!) {
+    playerStats(firstName: $firstName, lastName: $lastName) {
+      seasons {
+        season
+        team
+        gp
+        min
+        pts
+        reb
+        ast
+        stl
+        blk
+        fg_pct
+        fg3_pct
+        ft_pct
+      }
+      career {
+        season
+        team
+        gp
+        min
+        pts
+        reb
+        ast
+        stl
+        blk
+        fg_pct
+        fg3_pct
+        ft_pct
+      }
+    }
+  }
+`;
+
 export const GET_SEASON_AVERAGES = gql`
   query GetSeasonAverages($playerId: Int!, $season: Int) {
     seasonAverages(playerId: $playerId, season: $season) {

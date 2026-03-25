@@ -52,9 +52,30 @@ export const typeDefs = gql`
     next_cursor: Int
   }
 
+  type SeasonStat {
+    season: String!
+    team: String!
+    gp: Int!
+    min: Float!
+    pts: Float!
+    reb: Float!
+    ast: Float!
+    stl: Float!
+    blk: Float!
+    fg_pct: Float
+    fg3_pct: Float
+    ft_pct: Float
+  }
+
+  type CareerStats {
+    career: SeasonStat
+    seasons: [SeasonStat!]!
+  }
+
   type Query {
     players(search: String, page: Int): PlayersPage!
     player(id: Int!): Player
     seasonAverages(playerId: Int!, season: Int): SeasonAverage
+    playerStats(firstName: String!, lastName: String!): CareerStats
   }
 `;
